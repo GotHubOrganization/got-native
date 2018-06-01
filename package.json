@@ -4,9 +4,9 @@
     "private": true,
     "devDependencies": {
         "@types/jest": "^22.2.3",
-        "@types/react": "^16.3.14",
-        "@types/react-native": "^0.55.14",
-        "@types/react-navigation": "^1.5.11",
+        "@types/expo": "^26.0.4",
+        "@types/react": "^16.3.16",
+        "@types/react-native": "^0.55.16",
         "@types/react-test-renderer": "^16.0.1",
         "jest-expo": "~27.0.0",
         "react-native-scripts-ts": "1.14.0",
@@ -51,11 +51,10 @@
         }
     },
     "dependencies": {
-        "@types/expo": "^26.0.3",
-        "expo": "^27.0.2",
-        "native-base": "^2.4.5",
-        "react": "16.3.1",
-        "react-native": "~0.55.2",
-        "react-navigation": "^1.0.4"
+        "expo": "27.0.2",
+        "native-base": "2.4.5",
+        "react": "16.4.0",
+        "react-native": "0.55.4",
+        "react-navigation": "2.0.4"
     }
 }
