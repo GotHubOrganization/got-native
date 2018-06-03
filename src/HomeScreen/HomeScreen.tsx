@@ -25,11 +25,7 @@ export class HomeScreen extends React.Component<{ navigation?: any }, { houses: 
     constructor(props) {
         super(props);
         this.state = {
-            houses: [
-                {
-                    name: 'Haus 1',
-                },
-            ]
+            houses: []
         };
         this.houses = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         this.addHouse = this.addHouse.bind(this);
@@ -41,7 +37,6 @@ export class HomeScreen extends React.Component<{ navigation?: any }, { houses: 
     }
 
     public render() {
-        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         return (
             <Container>
                 <Content>
