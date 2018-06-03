@@ -156,7 +156,6 @@ export class RoomScreen extends React.Component<{ navigation?: any }, { add: boo
     }
 
     private addPosition(newPosition) {
-        console.log(this.state);
         this.setState({
             ...this.state,
             room: {

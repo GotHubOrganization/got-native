@@ -13,7 +13,7 @@ export class PositionScreen extends React.Component<{ navigation?: any }, { add:
             headerRight: (
                 <Button
                     transparent
-                    onPress={params.newCalcUnit}
+                    onPress={params.newBillingUnit}
                 >
                     <Icon name="add" />
                 </Button>
@@ -21,7 +21,7 @@ export class PositionScreen extends React.Component<{ navigation?: any }, { add:
         };
     };
 
-    private calcUnits;
+    private billingUnits;
 
     constructor(props) {
         super(props);
@@ -29,18 +29,18 @@ export class PositionScreen extends React.Component<{ navigation?: any }, { add:
             add: true,
             position: {
                 name: '',
-                calcUnits: []
+                billingUnits: []
             }
         };
-        this.calcUnits = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        this.billingUnits = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         this.save = this.save.bind(this);
         this.changeName = this.changeName.bind(this);
-        this.newCalcUnit = this.newCalcUnit.bind(this);
-        this.addCalcUnit = this.addCalcUnit.bind(this);
+        this.newBillingUnit = this.newBillingUnit.bind(this);
+        this.addBillingUnit = this.addBillingUnit.bind(this);
     }
 
     public componentWillMount() {
-        this.props.navigation.setParams({ newCalcUnit: this.newCalcUnit });
+        this.props.navigation.setParams({ newBillingUnit: this.newBillingUnit });
     }
 
     public componentDidMount() {
@@ -66,13 +66,13 @@ export class PositionScreen extends React.Component<{ navigation?: any }, { add:
                     </Item>
                 </Form>
                 <List style={{ flex: 1 }}
-                    dataSource={this.calcUnits.cloneWithRows(this.state.position.calcUnits)}
-                    renderRow={(calcUnit, secId, rowId, rowMap) =>
-                        <ListItem button onPress={(a) => this.editCalcUnit(calcUnit, secId, rowId)}>
-                            <Text> {calcUnit.name} </Text>
+                    dataSource={this.billingUnits.cloneWithRows(this.state.position.billingUnits)}
+                    renderRow={(billingUnit, secId, rowId, rowMap) =>
+                        <ListItem button onPress={(a) => this.editBillingUnit(billingUnit, secId, rowId)}>
+                            <Text> {billingUnit.name} </Text>
                         </ListItem>}
                     renderRightHiddenRow={(data, secId, rowId, rowMap) =>
-                        <Button full danger onPress={_ => this.removeCalcUnit(secId, rowId, rowMap)}>
+                        <Button full danger onPress={_ => this.removeBillingUnit(secId, rowId, rowMap)}>
                             <Icon active name="trash" />
                         </Button>}
                     disableRightSwipe
@@ -91,7 +91,7 @@ export class PositionScreen extends React.Component<{ navigation?: any }, { add:
             ...this.state,
             position: {
                 name: text,
-                calcUnits: this.state.position.calcUnits
+                billingUnits: this.state.position.billingUnits
             }
         });
     }
@@ -107,62 +107,62 @@ export class PositionScreen extends React.Component<{ navigation?: any }, { add:
         this.props.navigation.navigate('Room');
     }
 
-    private editCalcUnit(calcUnit, secId, rowId) {
-        this.props.navigation.navigate('CalcUnit', {
-            calcUnitName: calcUnit.name,
-            calcUnit,
-            saveCalcUnit: (cu) => this.saveCalcUnit(cu, secId, rowId) });
+    private editBillingUnit(billingUnit, secId, rowId) {
+        this.props.navigation.navigate('BillingUnit', {
+            billingUnitName: billingUnit.name,
+            billingUnit,
+            saveBillingUnit: (bu) => this.saveBillingUnit(bu, secId, rowId) });
     }
 
-    private saveCalcUnit(calcUnit, secId, rowId) {
-        const newData = [...this.state.position.calcUnits];
-        newData[rowId] = calcUnit;
+    private saveBillingUnit(billingUnit, secId, rowId) {
+        const newData = [...this.state.position.billingUnits];
+        newData[rowId] = billingUnit;
         this.setState({
             ...this.state,
             position: {
                 ...this.state.position,
-                calcUnits: newData
+                billingUnits: newData
             }
         });
     }
 
-    private removeCalcUnit(secId, rowId, rowMap) {
+    private removeBillingUnit(secId, rowId, rowMap) {
         Alert.alert(
-            'CalcUnit löschen',
-            'Möchtest du die CalcUnit wirklich löschen?',
+            'Abrechnungseinheit löschen',
+            'Möchtest du die Abrechnungseinheit wirklich löschen?',
             [
                 { text: 'Nein', onPress: () => rowMap[`${secId}${rowId}`].props.closeRow(), style: 'cancel' },
-                { text: 'Ja', onPress: () => this.deleteCalcUnit(secId, rowId, rowMap) },
+                { text: 'Ja', onPress: () => this.deleteBillingUnit(secId, rowId, rowMap) },
             ],
             { cancelable: false }
         );
     }
 
-    private deleteCalcUnit(secId, rowId, rowMap) {
+    private deleteBillingUnit(secId, rowId, rowMap) {
         rowMap[`${secId}${rowId}`].props.closeRow();
-        const newData = [...this.state.position.calcUnits];
+        const newData = [...this.state.position.billingUnits];
         newData.splice(rowId, 1);
         this.setState({
             ...this.state,
             position: {
                 ...this.state.position,
-                calcUnits: newData
+                billingUnits: newData
             }
         });
     }
 
-    private newCalcUnit() {
-        this.props.navigation.navigate('CalcUnit', { addCalcUnit: this.addCalcUnit });
+    private newBillingUnit() {
+        this.props.navigation.navigate('BillingUnit', { addBillingUnit: this.addBillingUnit });
     }
 
-    private addCalcUnit(newCalcUnit) {
+    private addBillingUnit(newBillingUnit) {
         this.setState({
             ...this.state,
             position: {
                 ...this.state.position,
-                CalcUnits: [
-                    ...this.state.position.calcUnits,
-                    newCalcUnit,
+                BillingUnits: [
+                    ...this.state.position.billingUnits,
+                    newBillingUnit,
                 ]
             }
         });
