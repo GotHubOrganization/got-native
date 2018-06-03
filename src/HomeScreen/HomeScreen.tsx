@@ -1,6 +1,6 @@
-import { Body, Button, Card, CardItem, Container, Content, Header, Icon, Left, List, ListItem, Right, Text, Title } from 'native-base';
-import React from 'react';
-import { ListView, StatusBar } from 'react-native';
+import { Body, Button, Card, CardItem, Container, Content, Header, Icon, Left, List, ListItem, Right, Text, Title, View } from 'native-base';
+import React, { Component } from 'react';
+import { Alert, ListView, StatusBar } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 export class HomeScreen extends React.Component<{ navigation?: any }, { houses: any }> {
@@ -47,19 +47,44 @@ export class HomeScreen extends React.Component<{ navigation?: any }, { houses: 
                 <Content>
                     <List
                         dataSource={this.houses.cloneWithRows(this.state.houses)}
-                        renderRow={house =>
-                            <ListItem>
+                        renderRow={(house, secId, rowId, rowMap) =>
+                            <ListItem button onPress={(a) => this.editHouse(house, secId, rowId)}>
                                 <Text> {house.name} </Text>
                             </ListItem>}
                         renderRightHiddenRow={(data, secId, rowId, rowMap) =>
-                            <Button full danger onPress={_ => this.deleteHouse(secId, rowId, rowMap)}>
+                            <Button full danger onPress={_ => this.removeHouse(secId, rowId, rowMap)}>
                                 <Icon active name="trash" />
                             </Button>}
                         disableRightSwipe
-                        rightOpenValue={-75}
+                        rightOpenValue={-120}
                     />
                 </Content>
             </Container>
+        );
+    }
+
+    private editHouse(house, secId, rowId) {
+        this.props.navigation.navigate('House', {
+            houseName: house.name,
+            house,
+            saveHouse: (h) => this.saveHouse(h, secId, rowId) });
+    }
+
+    private saveHouse(house, secId, rowId) {
+        const newData = [...this.state.houses];
+        newData[rowId] = house;
+        this.setState({ houses: newData });
+    }
+
+    private removeHouse(secId, rowId, rowMap) {
+        Alert.alert(
+            'Haus löschen',
+            'Möchtest du das Haus wirklich löschen?',
+            [
+                { text: 'Nein', onPress: () => rowMap[`${secId}${rowId}`].props.closeRow(), style: 'cancel' },
+                { text: 'Ja', onPress: () => this.deleteHouse(secId, rowId, rowMap) },
+            ],
+            { cancelable: false }
         );
     }
 
