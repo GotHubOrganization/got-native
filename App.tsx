@@ -3,6 +3,7 @@ import { Button, Icon } from 'native-base';
 import * as React from 'react';
 import { View } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+import { BillingUnitScreen } from './src/BillingUnitScreen/BillingUnitScreen';
 import { HomeScreen } from './src/HomeScreen/HomeScreen';
 import { HouseScreen } from './src/HouseScreen/HouseScreen';
 import { PositionScreen } from './src/PositionScreen/PositionScreen';
@@ -14,6 +15,7 @@ const RootStack = createStackNavigator(
         House: HouseScreen,
         Room: RoomScreen,
         Position: PositionScreen,
+        BillingUnit: BillingUnitScreen,
     }, {
         initialRouteName: 'Home'
     }

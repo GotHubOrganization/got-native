@@ -160,7 +160,7 @@ export class PositionScreen extends React.Component<{ navigation?: any }, { add:
             ...this.state,
             position: {
                 ...this.state.position,
-                BillingUnits: [
+                billingUnits: [
                     ...this.state.position.billingUnits,
                     newBillingUnit,
                 ]
