@@ -5,6 +5,7 @@ import { View } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { HomeScreen } from './src/HomeScreen/HomeScreen';
 import { HouseScreen } from './src/HouseScreen/HouseScreen';
+import { PositionScreen } from './src/PositionScreen/PositionScreen';
 import { RoomScreen } from './src/RoomScreen/RoomScreen';
 
 const RootStack = createStackNavigator(
@@ -12,6 +13,7 @@ const RootStack = createStackNavigator(
         Home: HomeScreen,
         House: HouseScreen,
         Room: RoomScreen,
+        Position: PositionScreen,
     }, {
         initialRouteName: 'Home'
     }
