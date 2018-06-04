@@ -18,11 +18,17 @@ export class BillingUnitScreen extends React.Component<{ navigation?: any }, { a
         this.state = {
             add: true,
             billingUnit: {
-                name: ''
+                type: 'SQU',
+                length: '0',
+                height: '0',
+                count: '0',
             }
         };
         this.save = this.save.bind(this);
-        this.changeName = this.changeName.bind(this);
+        this.changeType = this.changeType.bind(this);
+        this.changeLength = this.changeLength.bind(this);
+        this.changeHeight = this.changeHeight.bind(this);
+        this.changeCount = this.changeCount.bind(this);
     }
 
     public componentDidMount() {
@@ -43,10 +49,23 @@ export class BillingUnitScreen extends React.Component<{ navigation?: any }, { a
             <View style={{ flex: 1 }}>
                 <Form>
                     <Item fixedLabel>
-                        <Label>Name</Label>
-                        <Input value={this.state.billingUnit.name} onChangeText={this.changeName} />
+                        <Label>Typ:</Label>
+                        <Input value={this.state.billingUnit.type} onChangeText={this.changeType} />
+                    </Item>
+                    <Item fixedLabel>
+                        <Label>Länge:</Label>
+                        <Input value={this.state.billingUnit.length} onChangeText={this.changeLength} />
+                    </Item>
+                    <Item fixedLabel>
+                        <Label>Höhe:</Label>
+                        <Input value={this.state.billingUnit.height} onChangeText={this.changeHeight} />
+                    </Item>
+                    <Item fixedLabel>
+                        <Label>Stück:</Label>
+                        <Input value={this.state.billingUnit.count} onChangeText={this.changeCount} />
                     </Item>
                 </Form>
+                <View style={{ flex: 1 }} />
                 <Button onPress={this.save} full large >
                     <Text>Speichern</Text>
                 </Button>
@@ -55,11 +74,42 @@ export class BillingUnitScreen extends React.Component<{ navigation?: any }, { a
         );
     }
 
-    private changeName(text) {
+    private changeType(text) {
         this.setState({
             ...this.state,
             billingUnit: {
-                name: text
+                ...this.state.billingUnit,
+                type: text
+            }
+        });
+    }
+
+    private changeLength(text) {
+        this.setState({
+            ...this.state,
+            billingUnit: {
+                ...this.state.billingUnit,
+                length: text
+            }
+        });
+    }
+
+    private changeHeight(text) {
+        this.setState({
+            ...this.state,
+            billingUnit: {
+                ...this.state.billingUnit,
+                height: text
+            }
+        });
+    }
+
+    private changeCount(text) {
+        this.setState({
+            ...this.state,
+            billingUnit: {
+                ...this.state.billingUnit,
+                count: text
             }
         });
     }

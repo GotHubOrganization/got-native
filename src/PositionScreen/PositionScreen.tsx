@@ -69,7 +69,7 @@ export class PositionScreen extends React.Component<{ navigation?: any }, { add:
                     dataSource={this.billingUnits.cloneWithRows(this.state.position.billingUnits)}
                     renderRow={(billingUnit, secId, rowId, rowMap) =>
                         <ListItem button onPress={(a) => this.editBillingUnit(billingUnit, secId, rowId)}>
-                            <Text> {billingUnit.name} </Text>
+                            <Text> {billingUnit.type} </Text>
                         </ListItem>}
                     renderRightHiddenRow={(data, secId, rowId, rowMap) =>
                         <Button full danger onPress={_ => this.removeBillingUnit(secId, rowId, rowMap)}>
