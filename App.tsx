@@ -1,4 +1,4 @@
-import Expo from 'expo';
+import Expo, { Font } from 'expo';
 import { Button, Icon } from 'native-base';
 import * as React from 'react';
 import { View } from 'react-native';
@@ -22,7 +22,17 @@ const RootStack = createStackNavigator(
 );
 
 export default class App extends React.Component {
+    public async componentWillMount() {
+        await Font.loadAsync({
+            Roboto: require('native-base/Fonts/Roboto.ttf'),
+            Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf')
+        });
+        this.setState({ loading: false });
+    }
+
     public render() {
-        return <RootStack />;
+        return (
+            <RootStack />
+        );
     }
 }
